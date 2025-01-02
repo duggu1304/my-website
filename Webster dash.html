@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coffee with Mdm ji</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: url('https://i.pinimg.com/originals/19/67/ab/1967abd1df85721314ee011151baf386.png');
+            background-size: cover;
+            background-position: center;
+            background-color: #FFC0CB;
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            transition: background-color 1s ease-in-out;
+        }
+
+        .message-box {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 300px;
+            opacity: 0;
+            animation: fadeIn 1.5s forwards;
+        }
+
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+            z-index: 1000;
+            animation: fadeIn 1s forwards;
+        }
+
+        h2 {
+            color: #000;
+            transition: color 0.3s ease;
+        }
+
+        button {
+            margin: 10px 5px;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 12px;
+            background-color: #FF1493;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease-in-out;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #FF69B4;
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(255, 105, 180, 0.4);
+        }
+
+        button:active {
+            transform: scale(1);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        #content.hidden {
+            display: none;
+        }
+
+        .no-button-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        .content-wrapper {
+            max-width: 100%;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="content-wrapper">
+        <div class="message-box" id="content">
+            <h2>Hii Madam ji!!!</h2>
+            <img src="https://media.tenor.com/InE_gkwqdFUAAAAM/cute-cute-hi.gif" alt="Cute Image" width="200" height="200">
+            <button onclick="changeText()">Hi!!!</button>
+        </div>
+    </div>
+
+    <script>
+        // List of flirty lines
+        const flirtyLines = [
+            "Are you a magician? Because whenever I look at you, everyone else disappears. ✨",
+            "Do you have a name, or can I call you mine? ❤️",
+            "Is your name Google? Because you have everything I’ve been searching for. 🌟",
+            "Are you Wi-Fi? Because I’m feeling a connection. 📡",
+            "Is your dad a boxer? Because you’re a knockout! 🥊",
+            "If beauty were a crime, you’d definitely be serving a life sentence. 😉"
+        ];
+
+        let lineIndex = 0; // Track the current flirty line index
+
+        // Function to change the text and display new buttons
+        function changeText() {
+            const contentDiv = document.getElementById("content");
+            contentDiv.style.animation = 'fadeOut 1s forwards'; // Fade out the content
+
+            setTimeout(() => {
+                contentDiv.innerHTML = `
+                    <h2>Are you French? Because *Eiffel* for you. 😉</h2>
+                    <button onclick="rate0()">0/10</button>
+                    <button onclick="rate10()">10/10</button>
+                `;
+                contentDiv.style.animation = 'fadeIn 1.5s forwards'; // Fade in the new content
+            }, 1000);
+        }
+
+        // Function to handle the 0/10 button click
+        function rate0() {
+            const contentDiv = document.getElementById("content");
+            lineIndex = (lineIndex + 1) % flirtyLines.length; // Cycle through the lines
+            contentDiv.style.animation = 'fadeOut 1s forwards'; // Fade out the content
+
+            setTimeout(() => {
+                contentDiv.innerHTML = `
+                    <h2>${flirtyLines[lineIndex]}</h2>
+                    <button onclick="rate0()">0/10</button>
+                    <button onclick="rate10()">10/10</button>
+                `;
+                contentDiv.style.animation = 'fadeIn 1.5s forwards'; // Fade in the new content
+            }, 1000);
+        }
+
+        // Function to handle the 10/10 button click
+        function rate10() {
+            // Hide the main content and show the popup
+            const contentDiv = document.getElementById("content");
+            contentDiv.style.animation = 'fadeOut 1s forwards'; // Fade out the main content
+
+            setTimeout(() => {
+                contentDiv.innerHTML = ''; // Clear the content
+                const popup = document.createElement('div');
+                popup.className = 'popup';
+                popup.innerHTML = "<h2>Thanks BUBU ❤️</h2>";
+                document.body.appendChild(popup);
+
+                setTimeout(() => {
+                    document.body.removeChild(popup);
+                    openKnockKnockPage();
+                }, 1500);
+            }, 1000);
+        }
+
+        // Function to open the new Knock Knock game page
+        function openKnockKnockPage() {
+            const contentDiv = document.getElementById("content");
+            contentDiv.style.animation = 'fadeIn 1.5s forwards'; // Fade in the content again
+            contentDiv.innerHTML = `
+                <h2>Let's play Knock Knock Game</h2>
+                <img src="https://media.tenor.com/tY1P5q4O6xEAAAAj/knock-knock-door.gif" alt="Cute Image" width="200" height="200">
+                <button onclick="knockKnock()">Oki!!!</button>
+            `;
+        }
+
+        function knockKnock() {
+            const contentDiv = document.getElementById("content");
+            contentDiv.innerHTML = `
+                <h2>Knock Knock</h2>
+                <img src="https://media.tenor.com/m2x7CxSYNPgAAAAM/thinking.gif" alt="Cute Image" width="200" height="200">
+                <button onclick="whosThere()">Who's there?</button>
+            `;
+        }
+
+        function whosThere() {
+            const contentDiv = document.getElementById("content");
+            contentDiv.innerHTML = `
+                <h2>When, Where</h2>
+                <img src="https://media.tenor.com/6tltE62rnUsAAAAM/huh-confused.gif" alt="Cute Image" width="200" height="200">
+                <button onclick="whenWhereWho()">When Where Who?</button>
+            `;
+        }
+
+        function whenWhereWho() {
+            const contentDiv = document.getElementById("content");
+            contentDiv.style.animation = 'fadeOut 1s forwards'; // Fade out current content
+        
+            setTimeout(() => {
+                const popup = document.createElement('div');
+                popup.className = 'popup';
+                popup.innerHTML = `
+                    <h2>Tomorrow, Dream Cafe, Me & You</h2>
+                    <img src="https://media.tenor.com/_dzwox1tzn8AAAAM/cute-shy.gif" alt="Shy Image" width="300" height="300" style="margin-top: 15px;">
+                `;
+                document.body.appendChild(popup);
+        
+                setTimeout(() => {
+                    document.body.removeChild(popup);
+                    askQuestion();
+                }, 2000);
+            }, 1000); // Popup and image will disappear after 1.5 seconds
+        }
+
+        function askQuestion() {
+            const contentDiv = document.getElementById("content");
+            contentDiv.style.animation = 'fadeIn 1.5s forwards'; // Fade in the content again
+            contentDiv.innerHTML = `
+                <h2>Can I ask you a question?</h2>
+                <img src="https://media.tenor.com/ogynH6xuQ10AAAAM/shy.gif" alt="Shy Image" width="300" height="300" style="margin-top: 15px;">
+                <button onclick="yesResponse()">YES!!!</button>
+                <button onclick="sureResponse()">SURE!!!</button>
+            `;
+        }
+
+        // Placeholder functions for YES and SURE buttons
+        function yesResponse() {
+            askCoffeeDate();
+        }
+
+        function sureResponse() {
+            askCoffeeDate();
+        }
+
+        // Function to ask the coffee date question
+        function askCoffeeDate() {
+            const contentDiv = document.getElementById("content");
+            contentDiv.innerHTML = `
+                <h2>Ummmmmmm!!!! Will you go on a Coffee Date With Me?</h2>
+                <img src="https://media.tenor.com/cofRHcGGOfoAAAAj/shy-cute.gif" alt="Shy Image" width="300" height="300" style="margin-top: 15px;">
+                <button onclick="coffeeDateYes()">Yes!!!</button>
+                <button id="noButton" onclick="coffeeDateNo()">No!!!</button>
+            `;
+        }
+
+        // Function for YES response to Coffee Date
+        function coffeeDateYes() {
+            const contentDiv = document.getElementById("content");
+            contentDiv.style.animation = 'fadeOut 1.5s forwards'; // Fade out the content when Yes is pressed
+
+            setTimeout(() => {
+                const popup = document.createElement('div');
+                popup.className = 'popup';
+                popup.innerHTML = `
+                    <h2>I knew it, U can never say me No, We're made for each other!!!🫂</h2>
+                    <img src="https://media.tenor.com/UNGQM7bpF1YAAAAM/muach.gif" alt="Muach Image" width="300" height="300" style="margin-top: 15px;">
+                `;
+                document.body.appendChild(popup);
+
+                setTimeout(() => {
+                    document.body.removeChild(popup);
+                    const secondPopup = document.createElement('div');
+                    secondPopup.className = 'popup';
+                    secondPopup.innerHTML = "<h2>Now go and enjoy your date with Bndr 🐒</h2>";
+                    document.body.appendChild(secondPopup);
+                }, 3000);
+            }, 1000);
+        }
+
+        // Function for NO response to Coffee Date
+        function coffeeDateNo() {
+            const contentDiv = document.getElementById("content");
+            contentDiv.style.animation = 'fadeIn 1.5s forwards'; // Fade in the content again
+
+            // Move the "No!!!" button to a random position
+            const noButton = document.getElementById("noButton");
+            const randomX = Math.random() * (window.innerWidth - 200);
+            const randomY = Math.random() * (window.innerHeight - 100);
+            noButton.style.position = "absolute";
+            noButton.style.left = `${randomX}px`;
+            noButton.style.top = `${randomY}px`;
+        }
+    </script>
+
+</body>
+</html>
